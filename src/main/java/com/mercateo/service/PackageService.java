@@ -63,18 +63,11 @@ public class PackageService {
 		Map<Double, List<Item>> listMap = new HashMap<>(); //cost, item/pair
 
 		final double totalWeight = myPackage.getTotalWeight();
-		double maxCost = Integer.MIN_VALUE;
 		for (int i = 0; i < sortedItems.size(); i++) {
 			Item item = sortedItems.get(i);
+
 			double currentWeight = item.getWeight();
-
 			double currentItemCost = item.getCost();
-
-			// if maxCost from previous iteration is already greater than the currentItemCost,
-			// we can already return the map, since there'll be no item that can result to higher cost.
-			if (maxCost > currentItemCost) {
-				return listMap;
-			}
 
 			for (int j = i+1; j < sortedItems.size(); j++) {
 				Item nextItem = sortedItems.get(j);
@@ -83,7 +76,6 @@ public class PackageService {
 					itemPair.add(item);
 					itemPair.add(nextItem);
 					listMap.putIfAbsent(currentItemCost + nextItem.getCost(), itemPair);
-					maxCost = Math.max(maxCost, currentItemCost + nextItem.getCost());
 				}
 			}
 

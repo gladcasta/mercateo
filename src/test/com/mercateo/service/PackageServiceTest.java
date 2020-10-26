@@ -45,5 +45,17 @@ public class PackageServiceTest {
 		assertEquals("1,4", packageService.findHighestItemsInPackage(myPackage));
 	}
 
+	@Test
+	/**
+	 * 36.0=[[index=1, weight=90.0, cost=35.0], [index=5, weight=1.0, cost=1.0]],
+	 * 46.0=[[index=3, weight=85.0, cost=45.0], [index=5, weight=1.0, cost=1.0]],
+	 * 51.0=[[index=4, weight=30.0, cost=26.0], [index=2, weight=25.0, cost=25.0]],
+	 * 26.0=[[index=2, weight=25.0, cost=25.0], [index=5, weight=1.0, cost=1.0]],
+	 * 27.0=[[index=4, weight=30.0, cost=26.0], [index=5, weight=1.0, cost=1.0]]}
+	 */
+	public void testPackage_whenItemsHaveDiffValues_thenOutputShouldBeHighestPair() {
+		Package myPackage = packageReader.generatePackage("100 : (1,90,€35) (2,25,€25) (3,85,€45) (4,30,€26) (5,1,€1)");
+		assertEquals("2,4", packageService.findHighestItemsInPackage(myPackage));
+	}
 
 }
